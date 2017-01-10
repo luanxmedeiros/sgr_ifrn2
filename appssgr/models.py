@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, Group
 
 
 class Grupo(Group):
-    descricao = models.CharField("Grupo", max_length=20)
+    descricao= models.CharField("Grupo", max_length=20)
 
 
 # Modelo Pessoa
