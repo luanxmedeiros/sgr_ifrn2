@@ -7,6 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load staticfiles %}
     <link href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="/static/bootstrap-3.3.7/js/jquery.min.js"></script>
+    <script src="/static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $(".close").click(function(){
+                $("#alert").alert("close");
+            });
+        });
+</script>
 </head>
 <body>
         <div class="container">
@@ -34,10 +44,14 @@
                                       <div class="checkbox">
                                         <label>
                                           <input id="login-remember" type="checkbox" name="remember" value="1"> Continuar conectado
-                                            {% if form.errors %}
-                                                <p class="error">Desculpe, matrícula ou senha incorretos.</p>
-                                            {% endif %}
                                         </label>
+                                          {% if form.errors %}
+                                                <!--<p class="error">Desculpe, matrícula ou senha incorretos.</p>-->
+                                                <div class="alert alert-danger alert-dismissable" id="alert">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <strong>Desculpe!</strong> matrícula ou senha incorretos.
+                                                </div>
+                                          {% endif %}
                                       </div>
                                     </div>
                                 <div style="margin-top:10px" class="form-group">
