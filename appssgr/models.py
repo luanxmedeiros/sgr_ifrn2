@@ -19,7 +19,14 @@ class Professor(models.Model):
     pessoa = models.OneToOneField(Pessoa, on_delete=models.PROTECT, verbose_name="Pessoa", null=False, primary_key=True)
 
     def __str__(self):
-        return self.pessoa.nome
+        return self.pessoa.first_name
+
+# Modelo Tecnico Administrativo
+class Tecnico_Administrativo(models.Model):
+    pessoa = models.OneToOneField(Pessoa, on_delete=models.PROTECT, verbose_name="Pessoa", null=False,primary_key=True)
+
+    def __str__(self):
+        return self.pessoa.first_name
 
 # Modelo Curso
 class Curso(models.Model):
@@ -30,12 +37,12 @@ class Curso(models.Model):
         return self.nome
 
 # Modelo Aluno
-class Aluno(models.Model):
-    pessoa = models.OneToOneField(Pessoa, on_delete=models.PROTECT, verbose_name="Pessoa", null=False, primary_key=True)
+class Aluno(Pessoa):
+    #pessoa = models.OneToOneField(Pessoa, on_delete=models.PROTECT, verbose_name="Pessoa", null=False, primary_key=True)
     cursos = models.ForeignKey(Curso, on_delete=models.PROTECT, verbose_name="Curso", null=False, blank=False)
 
     def __str__(self):
-        return self.pessoa.nome
+        return self.pessoa.first_name
 
 # Modelo Disciplina
 class Disciplina(models.Model):
@@ -86,3 +93,14 @@ class Requerimento(models.Model):
     professor_atividade = models.ForeignKey(Professor, on_delete=models.PROTECT, related_name="Professor_Atividade", null=True, blank=True)
     documentos_apresentados = models.ManyToManyField(Documento, blank=True)
     documentos_files = models.FileField(upload_to=aluno_directory_path,default=None, null=True)
+    encaminhado_para = models.ForeignKey(Pessoa, on_delete=models.PROTECT, related_name="Avaliador", null=True, blank=True)
+
+    def __str__(self):
+        return self.id, self.aluno.get_full_name(), self.data_solicitacao_requerimento, self.tipo_requerimento, \
+               self.disciplina_cursada,self.observacoes, self.justificava, self.observacoes_documentos_apresentados, \
+               self.data_atividade, self.tipo_atividade, self.documentos_apresentados,self.encaminhado_para
+
+    class Meta:
+        permissions = (
+        ("view_requerimento", "Can see requerimento"),)
+
