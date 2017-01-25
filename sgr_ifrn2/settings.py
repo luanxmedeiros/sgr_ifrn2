@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appssgr',
     'widget_tweaks',
+    'tastypie',
 ]
 
 MIDDLEWARE = [
@@ -78,10 +79,10 @@ WSGI_APPLICATION = 'sgr_ifrn2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sgr',
         'USER': 'postgres',
-        'PASSWORD': 'r3d3s123',
+        'PASSWORD': 'c3f3t@2015',
         'HOST': 'localhost',
         'PORT': '5432',
     }
