@@ -1,17 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 
+'''
+Nos modelos fiz alteração na classe Aluno, para manter o mesmo tipo de relacionamento que existia para técnico e professor.
+Removi também a classe Grupo, porque já que usamos User, essa classe já possui um atributo do tipo Grupo, então ele acaba
+duplicando o campo.
 
-class Grupo(Group):
-    descricao= models.CharField("Grupo", max_length=20)
+Será necessário redimensionar alguns relacionamentos.
 
-
+'''
 # Modelo Pessoa
 class Pessoa(User):
     data_nascimento = models.DateField("Data de Nascimento", null=True, blank=True)
     cpf = models.CharField("CPF", max_length=14, unique=True, null=False, blank=False)
     telefone = models.CharField("Telefone",max_length=11, blank=True, null=True)
-    grupos = models.ManyToManyField(Grupo)
 
 
 # Modelo Professor
@@ -37,8 +39,8 @@ class Curso(models.Model):
         return self.nome
 
 # Modelo Aluno
-class Aluno(Pessoa):
-    #pessoa = models.OneToOneField(Pessoa, on_delete=models.PROTECT, verbose_name="Pessoa", null=False, primary_key=True)
+class Aluno(models.Model):
+    pessoa = models.OneToOneField(Pessoa, on_delete=models.PROTECT, verbose_name="Pessoa", null=False, primary_key=True)
     cursos = models.ForeignKey(Curso, on_delete=models.PROTECT, verbose_name="Curso", null=False, blank=False)
 
     def __str__(self):
