@@ -1,7 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 
+'''
+Nos modelos fiz alteração na classe Aluno, para manter o mesmo tipo de relacionamento que existia para técnico e professor.
+Removi também a classe Grupo, porque já que usamos User, essa classe já possui um atributo do tipo Grupo, então ele acaba
+duplicando o campo.
 
+Será necessário redimensionar alguns relacionamentos.
+
+'''
 # Modelo Pessoa
 class Pessoa(User):
     data_nascimento = models.DateField("Data de Nascimento", null=True, blank=True)
