@@ -1,17 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 
-
-class Grupo(Group):
-    descricao= models.CharField("Grupo", max_length=20)
-
-
 # Modelo Pessoa
 class Pessoa(User):
     data_nascimento = models.DateField("Data de Nascimento", null=True, blank=True)
     cpf = models.CharField("CPF", max_length=14, unique=True, null=False, blank=False)
     telefone = models.CharField("Telefone",max_length=11, blank=True, null=True)
-    grupos = models.ManyToManyField(Grupo)
+    grupos = models.ManyToManyField(Group)
 
 
 # Modelo Professor
@@ -87,20 +82,16 @@ class Requerimento(models.Model):
     tipo_requerimento = models.ForeignKey(TipoRequerimento, on_delete=models.PROTECT, verbose_name="Tipo de Requerimento", null=False)
     disciplina = models.ForeignKey(Disciplina, on_delete=models.PROTECT, related_name="Disciplina", null=True, blank=True)
     observacoes = models.TextField("Observações", blank=True, null=True)
-    justificava = models.TextField("Justificativa", blank=True, null=True)
+    justificativa = models.TextField("Justificativa", blank=True, null=True)
     data_atividade = models.DateField("Data da atividade", null=True, blank=True)
     tipo_atividade = models.CharField("Tipo de atividade", max_length=50, null=True, blank=True)
     professor_atividade = models.ForeignKey(Professor, on_delete=models.PROTECT, related_name="Professor_Atividade", null=True, blank=True)
     documentos_apresentados = models.ManyToManyField(Documento, blank=True)
     documentos_files = models.FileField(upload_to=aluno_directory_path,default=None, null=True)
     encaminhado_para = models.ForeignKey(Pessoa, on_delete=models.PROTECT, related_name="Avaliador", null=True, blank=True)
-
-    def __str__(self):
-        return self.id, self.aluno.get_full_name(), self.data_solicitacao_requerimento, self.tipo_requerimento, \
-               self.disciplina_cursada,self.observacoes, self.justificava, self.observacoes_documentos_apresentados, \
-               self.data_atividade, self.tipo_atividade, self.documentos_apresentados,self.encaminhado_para
+    resultado = models.CharField("Resultado", max_length= 50, blank=True, null=True)
 
     class Meta:
         permissions = (
-        ("view_requerimento", "Can see requerimento"),)
+        ("view_requerimento", "Can see requerimento"),("detail_requerimento", "Can see detail of the requerimento"))
 

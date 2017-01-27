@@ -1,15 +1,9 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required,permission_required
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from django.shortcuts import render,redirect
-from django.db import IntegrityError
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from appssgr.forms import *
 from django.forms import modelform_factory
-from django.forms import formset_factory
-from django.http.request import QueryDict
-from django.contrib import messages
+
 # Create your views here..
 
 @login_required(login_url='login')
@@ -33,7 +27,7 @@ def req_new(request):
         id_tipo_requerimento=request.session['0']
 
     if(id_tipo_requerimento=="1"):
-        RequerimentoFormNovo=modelform_factory(Requerimento,fields=('professor_atividade','tipo_atividade','disciplina','data_atividade','justificava','observacoes','documentos_apresentados','documentos_files','encaminhado_para',))
+        RequerimentoFormNovo=modelform_factory(Requerimento,fields=('professor_atividade','tipo_atividade','disciplina','data_atividade','justificativa','observacoes','documentos_apresentados','documentos_files',))
 
     if (request.method=="POST"):
         form=RequerimentoFormNovo(request.POST,request.FILES)
@@ -129,7 +123,7 @@ def req_list(request):
                  "tipo_requerimento": tipo_requerimento, 'requerimentos_professor': requerimentos_professor}
         return render(request, 'req/req_list_tecnico.html', dados)
 
-#@permission_required('appsgr.detail_requerimento',login_url='erro_permissao')
+@permission_required('appssgr.detail_requerimento',login_url='erro_permissao')
 def req_detail(request, pk):
     pessoa_logada = Pessoa.objects.get(username=request.user.username)
     usuarios = []
@@ -145,19 +139,15 @@ def req_detail(request, pk):
     dados = {'form':form,'usuarios':usuarios,'requerimento':requerimento}
     return render(request, 'req/req_detail.html', dados)
 
-#@permission_required('appssgr.change_requerimento',login_url='erro_permissao')
+@permission_required('appssgr.change_requerimento',login_url='erro_permissao')
 def req_update(request,pk):
     requerimento=Requerimento.objects.get(id=pk)
-    request.session[0]=pk
-    idreq = request.session['0']
     if (request.method=="POST"):
-        form=RequerimentoForm(request.POST,instance=requerimento)
+        form=RequerimentoForm(request.POST,request.FILES,instance=requerimento)
         if (form.is_valid()):
-            requerimento=form.save(commit=False)
-            requerimento.id=Requerimento.objects.get(id=idreq)
-            requerimento.save()
+            form.save()
             return redirect('req_list')
     else:
         form=RequerimentoForm(instance=requerimento)
-    dados={'form':form,'requerimento':requerimento}
-    return render(request, 'req/req_detail.html', dados)
+        dados={'form':form}
+        return render(request, 'req/req_form.html', dados)

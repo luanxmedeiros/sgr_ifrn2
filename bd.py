@@ -1,10 +1,10 @@
 from appssgr.models import *
 
-professores=Grupo(name="Professores")
+professores=Group(name="Professores")
 professores.save()
-alunos=Grupo(name="Alunos")
+alunos=Group(name="Alunos")
 alunos.save()
-tecadm=Grupo(name="Técnico Administrativo")
+tecadm=Group(name="Técnico Administrativo")
 tecadm.save()
 
 # Criando as pessoas
@@ -58,12 +58,12 @@ doc1 = Documento(nome="Atestado Médico")
 doc1.save()
 
 # Criando Requerimento
-req1 = Requerimento(aluno=alu1,tipo_requerimento=tipo1,disciplina=web1,observacoes="Teste",
-                    justificava="Consulta Médica",data_atividade="2017-01-10",tipo_atividade="Prova",professor_atividade=prof1)
-req1.save()
-req1.documentos_apresentados.add(doc1)
+#req1 = Requerimento(aluno=alu1,tipo_requerimento=tipo1,disciplina=web1,observacoes="Teste",
+#                    justificava="Consulta Médica",data_atividade="2017-01-10",tipo_atividade="Prova",professor_atividade=prof1)
+#req1.save()
+#req1.documentos_apresentados.add(doc1)
 
-req2 = Requerimento(aluno=alu2,tipo_requerimento=tipo1,disciplina=web1,observacoes="Teste",
-                    justificava="Consulta Médica",data_atividade="2017-01-02",tipo_atividade="Prova",professor_atividade=prof1)
-req2.save()
-req2.documentos_apresentados.add(doc1)
+#req2 = Requerimento(aluno=alu2,tipo_requerimento=tipo1,disciplina=web1,observacoes="Teste",
+#                    justificava="Consulta Médica",data_atividade="2017-01-02",tipo_atividade="Prova",professor_atividade=prof1)
+#req2.save()
+#req2.documentos_apresentados.add(doc1)
