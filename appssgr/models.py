@@ -6,7 +6,9 @@ class Pessoa(User):
     data_nascimento = models.DateField("Data de Nascimento", null=True, blank=True)
     cpf = models.CharField("CPF", max_length=14, unique=True, null=False, blank=False)
     telefone = models.CharField("Telefone",max_length=11, blank=True, null=True)
-    grupos = models.ManyToManyField(Group)
+
+    def __str__(self):
+        return self.pessoa.first_name
 
 
 # Modelo Professor
@@ -72,6 +74,12 @@ class Documento(models.Model):
     def __str__(self):
         return self.nome
 
+class Situacao(models.Model):
+    tipo = models.CharField("Tipo da Situação", max_length=150, null=False)
+
+    def __str__(self):
+        return self.tipo
+
 # Função do caminho do diretório
 def aluno_directory_path(instance, filename):
     return 'func_{0}/{1}'.format(instance.aluno.username, filename)
@@ -89,7 +97,7 @@ class Requerimento(models.Model):
     documentos_apresentados = models.ManyToManyField(Documento, blank=True)
     documentos_files = models.FileField(upload_to=aluno_directory_path,default=None, null=True)
     encaminhado_para = models.ForeignKey(Pessoa, on_delete=models.PROTECT, related_name="Avaliador", null=True, blank=True)
-    resultado = models.CharField("Resultado", max_length= 50, blank=True, null=True)
+    situacao = models.ForeignKey(Situacao, max_length=50, blank=True, null=True,default=1)
 
     class Meta:
         permissions = (

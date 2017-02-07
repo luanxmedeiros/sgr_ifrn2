@@ -22,9 +22,10 @@
         {% for requerimento in requerimento %}
             <tr>
                 <td>{{ requerimento.aluno.first_name }}</td>
-                <td> {{ requerimento.tipo_requerimento }}</td>
+                <td> <a href="{% url 'req_detail' requerimento.pk %}">{{ requerimento.tipo_requerimento }}</a></td>
                 <td> {{ requerimento.disciplina }} </td>
                 <td>{{ requerimento.data_solicitacao_requerimento }}</td>
+                <td><a href="{% url 'req_update' requerimento.pk %}" class="btn btn-primary">Deferir/Indeferir</a> </td>
             </tr>
         {% endfor %}
     </table>

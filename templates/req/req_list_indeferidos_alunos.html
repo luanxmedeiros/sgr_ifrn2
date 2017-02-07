@@ -1,16 +1,8 @@
 {% extends 'base.html' %}
 {% block conteudo %}
     <h2>Requerimentos</h2>
-    <form method="GET" role="form" action="{% url 'req_new' %}" class="form-group">
 
-        <select name="id_tipo_requerimento">
-            {% for field in tipo_requerimento %}
-                <option value="{{ field.id }}">{{ field.nome }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" class="btn btn-primary" value="Criar">
-    </form>
-    <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'req_list' %}">
+   <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'req_list_deferidos' %}">
         <div class="form-group">
             <label for="criterio">Descrição:</label>
             <input type="text" id="criterio" name="criterio" value="{{ criterio }}" class="form-control" placeholder="Descrição">
@@ -27,6 +19,7 @@
             <th> Data da Atividade</th>
             <th> Professor </th>
             <th> Disciplina </th>
+            <th> Observações </th>
             <th> Situação </th>
         </tr>
         {% for requerimento in requerimento %}
@@ -39,6 +32,7 @@
                 <td> {{ requerimento.data_atividade }}</td>
                 <td> {{ requerimento.professor_atividade }}</td>
                 <td> {{ requerimento.disciplina }}</td>
+                <td>{{ requerimento.observacoes }}</td>
                  <td> {{ requerimento.situacao }}</td>
             </tr>
         {% endfor %}

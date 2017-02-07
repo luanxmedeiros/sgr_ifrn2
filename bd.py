@@ -1,3 +1,5 @@
+from _pydecimal import _group_lengths
+
 from appssgr.models import *
 
 professores=Group(name="Professores")
@@ -56,6 +58,17 @@ tipo1.save()
 # Documento
 doc1 = Documento(nome="Atestado Médico")
 doc1.save()
+
+# Situação
+sit1 = Situacao(tipo="Em Avaliação")
+sit1.save()
+sit2 = Situacao(tipo="Requerimento Deferido")
+sit2.save()
+sit3 = Situacao(tipo="Requerimento Indeferido")
+sit3.save()
+
+
+
 
 # Criando Requerimento
 #req1 = Requerimento(aluno=alu1,tipo_requerimento=tipo1,disciplina=web1,observacoes="Teste",
