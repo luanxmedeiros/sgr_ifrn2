@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appssgr',
     'widget_tweaks',
+    'tastypie'
 ]
 
 MIDDLEWARE = [

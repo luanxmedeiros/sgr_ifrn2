@@ -36,7 +36,7 @@ class Curso(models.Model):
 # Modelo Aluno
 class Aluno(Pessoa):
     #pessoa = models.OneToOneField(Pessoa, on_delete=models.PROTECT, verbose_name="Pessoa", null=False, primary_key=True)
-    cursos = models.ForeignKey(Curso, on_delete=models.PROTECT, verbose_name="Curso", null=False, blank=False)
+    curso = models.ForeignKey(Curso, on_delete=models.PROTECT, verbose_name="Curso", null=False, blank=False)
 
     def __str__(self):
         return self.pessoa.first_name
@@ -48,8 +48,8 @@ class Disciplina(models.Model):
     carga_horaria = models.IntegerField("Carga Horária", null=False)
     professor = models.ManyToManyField(Professor)
     periodo = models.IntegerField("Período", null=False, blank=False)
-    alunos = models.ManyToManyField(Aluno,through="AlunoDisciplina")
-    cursos = models.ManyToManyField(Curso)
+    aluno = models.ManyToManyField(Aluno,through="AlunoDisciplina")
+    curso = models.ManyToManyField(Curso)
 
     def __str__(self):
         return self.nome

@@ -1,5 +1,3 @@
-from _pydecimal import _group_lengths
-
 from appssgr.models import *
 
 professores=Group(name="Professores")
@@ -15,6 +13,19 @@ pes1=Pessoa(is_staff=True,first_name='Givanaldo', last_name="Rocha", cpf='333444
 pes1.set_password('123456')
 pes1.save()
 professores.user_set.add(pes1)
+'''
+pes2=Pessoa(is_staff=True,first_name='Carlos Henrique', last_name='Pires dos Santos', cpf='33344455561',email='carlos@gmail.com',
+            data_nascimento="1999-05-30", telefone='84998217953' ,username='20122148000002')
+pes2.set_password('123456')
+pes2.save()
+alunos.user_set.add(pes2)
+
+pes3=Pessoa(is_staff=True,first_name='Juliana', last_name='dos Anjos', cpf='33344455562',email='juh@gmail.com',
+            data_nascimento="1999-05-15", telefone='84998217913' ,username='20122148000003')
+pes3.set_password('123456')
+pes3.save()
+alunos.user_set.add(pes3)
+'''
 
 pes4=Pessoa(first_name='Eduardo', last_name="Chavez", cpf='55566633301',email='eduardo@gmail.com',data_nascimento="1989-05-15",username='20122148000004',  telefone='84955196660')
 pes4.set_password('123456')
@@ -35,13 +46,13 @@ tsi.save()
 
 # Criando os Alunos
 alu1=Aluno(is_staff=True,first_name='Carlos Henrique', last_name='Pires dos Santos', cpf='33344455561',email='carlos@gmail.com',
-            data_nascimento="1999-05-30", telefone='84998217953' ,username='20122148000002',cursos=tsi)
+            data_nascimento="1999-05-30", telefone='84998217953' ,username='20122148000002',curso=tsi)
 alu1.set_password('123456')
 alu1.save()
 alunos.user_set.add(alu1)
 
 alu2=Aluno(is_staff=True,first_name='Juliana', last_name='dos Anjos', cpf='33344455562',email='juh@gmail.com',
-            data_nascimento="1999-05-15", telefone='84998217913' ,username='20122148000003', cursos=tsi)
+            data_nascimento="1999-05-15", telefone='84998217913' ,username='20122148000003',curso=tsi)
 alu2.set_password('123456')
 alu2.save()
 alunos.user_set.add(alu2)

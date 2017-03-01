@@ -1,6 +1,34 @@
 from django.conf.urls import include,url
 from appssgr.views import *
 from django.contrib.auth.views import login,logout
+from .api import *
+from tastypie.api import Api
+
+# WEB SERVICE COM O TASTYPIE
+api=Api(api_name='dados')
+
+professorResource=ProfessorResource()
+alunoResource=AlunoResource()
+tecAdmResource=TecAdmResource()
+cursoResource=CursoResource()
+disciplinaResource=DisciplinaResource()
+alunodisciplinaResource=AlunoDisciplinaResource()
+tipoRequerimentoResource = TipoRequerimentoResource()
+situacaoResource = SituacaoResource()
+requerimentoResource = RequerimentoResource()
+
+api.register(professorResource)
+api.register(PessoaResource())
+api.register(alunoResource)
+api.register(tecAdmResource)
+api.register(cursoResource)
+api.register(disciplinaResource)
+api.register(alunodisciplinaResource)
+api.register(tipoRequerimentoResource)
+api.register(situacaoResource)
+api.register(requerimentoResource)
+
+
 
 urlpatterns=[
 # Url para a página principal base.html
@@ -20,4 +48,5 @@ urlpatterns=[
     url(r'^req/update/(?P<pk>\d+)$',req_update,name='req_update'),
     url(r'^req/detail/(?P<pk>\d+)$', req_detail, name='req_detail'),
     #url(r'^req/delete/(P<pk>\d+)$',req_delete,name='req_delete'),
+    url(r'^api/',include(api.urls),name='api'),
 ]
