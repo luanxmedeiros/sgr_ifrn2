@@ -14,12 +14,14 @@
             <th>Nº</th>
             <th>Tipo</th>
             <th>Data da Solicitação</th>
+            <th>Situação</th>
         </tr>
         {% for requerimento in requerimento %}
             <tr>
-                <td>{{ requerimento.id }}</td>
-                <td><a href="{% url 'req_detail' requerimento.pk %}"> {{ requerimento.tipo_requerimento }}</a></td>
+                <td><a href="{% url 'req_detail' requerimento.pk %}">{{ requerimento.aluno.first_name }}</a></td>
+                <td>{{ requerimento.tipo_requerimento }}</td>
                 <td>{{ requerimento.data_solicitacao_requerimento }}</td>
+                <td>{{ requerimento.situacao }}</td>
                 <td><a href="{% url 'req_update' requerimento.pk %}" class="btn btn-primary">Encaminhar</a> </td>
             </tr>
         {% endfor %}

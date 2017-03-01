@@ -122,6 +122,85 @@ def req_list(request):
                  "tipo_requerimento": tipo_requerimento, 'requerimentos_professor': requerimentos_professor}
         return render(request, 'req/req_list_tecnico.html', dados)
 
+def req_list_avaliacao(request):
+    criterio=request.GET.get('criterio')
+    pessoa_logada = Pessoa.objects.get(username=request.user.username)
+    tipo_requerimento=TipoRequerimento.objects.all().order_by('nome')
+    requerimentos_professor = []
+
+    #Instanciando objetos
+    try:
+        aluno = Aluno.objects.get(username=pessoa_logada.username)
+    except Aluno.DoesNotExist:
+        aluno = None
+    try:
+        professor = Professor.objects.get(pessoa_id=pessoa_logada.id)
+    except Professor.DoesNotExist:
+        professor = None
+    try:
+        tecnico = Tecnico_Administrativo.objects.get(pessoa_id=pessoa_logada.id)
+    except Tecnico_Administrativo.DoesNotExist:
+        tecnico = None
+
+    #ALUNO
+    if(aluno != None):
+        if (criterio):
+            requerimento=Requerimento.objects.filter(situacao=1,tipo_requerimento__nome__contains=criterio, aluno=aluno).order_by('tipo_requerimento','-data_solicitacao_requerimento')
+        else:
+            requerimento=Requerimento.objects.filter(situacao=1,aluno_id=aluno).order_by('tipo_requerimento','-data_solicitacao_requerimento') #| Requerimento.objects.filter(tipo_requerimento_id=2).order_by('tipo_requerimento','-data_solicitacao_requerimento')
+            criterio=""
+        #Cria o mecanimos de paginação
+        paginator=Paginator(requerimento,10)
+        page=request.GET.get('page')
+        try:
+            requerimento=paginator.page(page)
+        except PageNotAnInteger:
+            requerimento=paginator.page(1)
+        except EmptyPage:
+            requerimento=paginator.page(paginator.num_pages)
+        dados={'requerimento':requerimento,'criterio':criterio,'paginator':paginator,'page_obj':requerimento, "tipo_requerimento":tipo_requerimento}
+        return render(request, 'req/req_list_aluno.html', dados)
+    # PROFESSOR
+    elif(professor != None):
+        if (criterio):
+            requerimento=Requerimento.objects.filter(encaminhado_para=pessoa_logada,situacao=1,tipo_requerimento__nome__contains=criterio).order_by('tipo_requerimento','data_solicitacao_requerimento')
+        else:
+            requerimento=Requerimento.objects.all().filter(encaminhado_para=pessoa_logada,situacao=1).order_by('tipo_requerimento','data_solicitacao_requerimento')
+            criterio=""
+        #Cria o mecanimos de paginação
+        paginator=Paginator(requerimento,10)
+        page=request.GET.get('page')
+        try:
+            requerimento=paginator.page(page)
+        except PageNotAnInteger:
+            requerimento=paginator.page(1)
+        except EmptyPage:
+            requerimento=paginator.page(paginator.num_pages)
+        dados={'requerimento':requerimento,'criterio':criterio,'paginator':paginator,'page_obj':requerimento, "tipo_requerimento":tipo_requerimento, 'requerimentos_professor':requerimentos_professor}
+        return render(request, 'req/req_list_prof.html', dados)
+
+    # TECNICO ADMINISTRATIVO
+    elif (tecnico != None):
+        if (criterio):
+            requerimento = Requerimento.objects.filter(encaminhado_para=None, situacao=1,descricao__contains=criterio).order_by('tipo_requerimento',
+                                                                                       '-data_solicitacao_requerimento')
+        else:
+            requerimento = Requerimento.objects.filter(encaminhado_para=None, situacao=1).order_by('tipo_requerimento',
+                                                                                                       'data_solicitacao_requerimento')
+            criterio = ""
+        # Cria o mecanimos de paginação
+        paginator = Paginator(requerimento, 10)
+        page = request.GET.get('page')
+        try:
+            requerimento = paginator.page(page)
+        except PageNotAnInteger:
+            requerimento = paginator.page(1)
+        except EmptyPage:
+            requerimento = paginator.page(paginator.num_pages)
+        dados = {'requerimento': requerimento, 'criterio': criterio, 'paginator': paginator, 'page_obj': requerimento,
+                 "tipo_requerimento": tipo_requerimento, 'requerimentos_professor': requerimentos_professor}
+        return render(request, 'req/req_list_tecnico.html', dados)
+
 @permission_required('appssgr.detail_requerimento',login_url='erro_permissao')
 def req_detail(request, pk):
     pessoa_logada = Pessoa.objects.get(username=request.user.username)

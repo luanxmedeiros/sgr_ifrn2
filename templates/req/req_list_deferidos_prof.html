@@ -18,8 +18,8 @@
         </tr>
         {% for requerimento in requerimento %}
             <tr>
-                <td>{{ requerimento.aluno.first_name }}</td>
-                <td> {{ requerimento.tipo_requerimento }}</td>
+                <td><a href="{% url 'req_detail' requerimento.pk %}">{{ requerimento.aluno.first_name }}</a></td>
+                <td>{{ requerimento.tipo_requerimento }}</td>
                 <td> {{ requerimento.disciplina }} </td>
                 <td>{{ requerimento.data_solicitacao_requerimento }}</td>
                 <td>{{ requerimento.situacao }}</td>

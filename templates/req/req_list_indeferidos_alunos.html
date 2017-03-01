@@ -2,7 +2,7 @@
 {% block conteudo %}
     <h2>Requerimentos</h2>
 
-   <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'req_list_deferidos' %}">
+   <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'req_list_indeferidos' %}">
         <div class="form-group">
             <label for="criterio">Descrição:</label>
             <input type="text" id="criterio" name="criterio" value="{{ criterio }}" class="form-control" placeholder="Descrição">
