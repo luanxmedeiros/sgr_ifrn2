@@ -67,6 +67,10 @@ class TipoRequerimento(models.Model):
     def __str__(self):
         return self.nome
 
+    class Meta:
+        permissions = (
+        ("view_tipo_requerimento", "Can see tipo requerimento"),("detail_tipo_requerimento", "Can see detail of the tipo requerimento"))
+
 # Modelo Documento
 class Documento(models.Model):
     nome = models.CharField("Nome Documento", max_length=150, null=False)

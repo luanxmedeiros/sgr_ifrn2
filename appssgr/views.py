@@ -42,7 +42,7 @@ def req_new(request):
     dados={'form':form}
     return render(request, 'req/req_form.html', dados)
 
-@permission_required('appssgr.view_requerimento',login_url='erro_permissao')
+@permission_required('appssgr.add_requerimento',login_url='erro_permissao')
 def req_list(request):
     criterio=request.GET.get('criterio')
     pessoa_logada = Pessoa.objects.get(username=request.user.username)
@@ -122,6 +122,7 @@ def req_list(request):
                  "tipo_requerimento": tipo_requerimento, 'requerimentos_professor': requerimentos_professor}
         return render(request, 'req/req_list_tecnico.html', dados)
 
+@permission_required('appssgr.view_requerimento',login_url='erro_permissao')
 def req_list_avaliacao(request):
     criterio=request.GET.get('criterio')
     pessoa_logada = Pessoa.objects.get(username=request.user.username)
@@ -239,7 +240,7 @@ def req_update(request,pk):
 
 ##############
 
-@permission_required('appssgr.view_requerimento',login_url='erro_permissao')
+@permission_required('appssgr.view_tipo_requerimento',login_url='erro_permissao')
 def req_list_deferidos(request):
     criterio=request.GET.get('criterio')
     pessoa_logada = Pessoa.objects.get(username=request.user.username)
