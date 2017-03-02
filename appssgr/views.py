@@ -232,7 +232,7 @@ def req_update(request,pk):
         form=RequerimentoForm(request.POST,request.FILES,instance=requerimento)
         if (form.is_valid()):
             form.save()
-            return redirect('req_list')
+            return redirect('home')
     else:
         form=RequerimentoForm(instance=requerimento)
         dados={'form':form}
