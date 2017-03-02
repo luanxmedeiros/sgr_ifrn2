@@ -80,7 +80,7 @@ def req_list(request):
         except EmptyPage:
             requerimento=paginator.page(paginator.num_pages)
         dados={'requerimento':requerimento,'criterio':criterio,'paginator':paginator,'page_obj':requerimento, "tipo_requerimento":tipo_requerimento}
-        return render(request, 'req/req_list_aluno.html', dados)
+        return render(request, 'req/req_criar.html', dados)
     # PROFESSOR
     elif(professor != None):
         if (criterio):
