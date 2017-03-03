@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sgr',
         'USER': 'postgres',
-        'PASSWORD': 'r3d3s123',
+        'PASSWORD': '197352',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'UTC'
 
@@ -130,5 +130,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+MEDIA_ROOT=os.path.join(BASE_DIR,"media").replace('\\', '/')
 MEDIA_URL='/media/'
+
+SERVE_STATIC_FILES = True

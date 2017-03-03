@@ -9,6 +9,7 @@
         <li class="list-group-item">Data da Atividade: {{ requerimento.data_atividade }}</li>
         <li class="list-group-item">Professor: {{ requerimento.professor_atividade }}</li>
         <li class="list-group-item">Documento Apresentado: {{ requerimento.documentos_apresentados }}</li>
-        <li class="list-group-item">Arquivo: {{ requerimento.documentos_files }}</li>
+        <li class="list-group-item">Arquivo: <a href="{{ requerimento.documentos_files.url }}">Baixar anexo</a> </li>
+
     </ul>
 {% endblock %}
