@@ -1,8 +1,14 @@
 from django.conf.urls import include,url
+from patterns import patterns
+
 from appssgr.views import *
 from django.contrib.auth.views import login,logout
+from django.conf.urls.static import static
+
+from sgr_ifrn2 import settings
 from .api import *
 from tastypie.api import Api
+from django.conf import settings
 
 # WEB SERVICE COM O TASTYPIE
 api=Api(api_name='dados')
@@ -50,4 +56,7 @@ urlpatterns=[
     url(r'^req/detail/(?P<pk>\d+)$', req_detail, name='req_detail'),
     #url(r'^req/delete/(P<pk>\d+)$',req_delete,name='req_delete'),
     url(r'^api/',include(api.urls),name='api'),
+
+
 ]
+

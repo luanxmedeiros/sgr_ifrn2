@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
 
+
 # Modelo Pessoa
 class Pessoa(User):
     data_nascimento = models.DateField("Data de Nascimento", null=True, blank=True)
@@ -107,3 +108,10 @@ class Requerimento(models.Model):
         permissions = (
         ("view_requerimento", "Can see requerimento"),("detail_requerimento", "Can see detail of the requerimento"))
 
+    def file_link(self):
+        if self.documentos_files:
+            return "<a href='%s'>Download</a>" % (self.documentos_files.url,)
+        else:
+            return "Nenhum anexo"
+
+    file_link.allow_tags = True
