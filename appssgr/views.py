@@ -234,7 +234,7 @@ def req_update(request,pk):
             form.save()
             return redirect('home')
     else:
-        form=RequerimentoForm(instance=requerimento)
+        form=RequerimentoFormUpdate(instance=requerimento)
         dados={'form':form}
         return render(request, 'req/req_form.html', dados)
 

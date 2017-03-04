@@ -9,8 +9,12 @@
             <li class="list-group-item">Disciplina: {{ requerimento.disciplina}}</li>
             <li class="list-group-item">Data da Atividade: {{ requerimento.data_atividade }}</li>
             <li class="list-group-item">Professor: {{ requerimento.professor_atividade }}</li>
-            <li class="list-group-item">Documento Apresentado: {{ requerimento.documentos_files.url }}</li>
-            <li class="list-group-item">Arquivo: {{ requerimento.documentos_files }}</li>
+            {% if requerimento.documentos_apresentados == None %}
+                <li class="list-group-item">Documento Apresentado: Nenhum</li>
+            {% else %}
+                <li class="list-group-item">Documento Apresentado: {{ requerimento.documentos_apresentados }}</li>
+            {% endif %}
+            <li class="list-group-item">Anexo: <a href="{{ requerimento.documentos_files.url }}">Baixar anexo</a></li>
         </ul>
     </div>
     <button onclick="gerarPDF()" id="gerarPDF">Gerar Comprovante</button>
